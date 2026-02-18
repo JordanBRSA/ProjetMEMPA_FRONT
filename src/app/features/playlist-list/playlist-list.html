@@ -1,1 +1,17 @@
-<p>playlist-list works!</p>
+<div class="container mt-4">
+  <h2 class="mb-4">Liste des playlists</h2>
+
+  <div *ngFor="let playlist of playlists" class="card mb-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">{{ playlist.name }}</h5>
+      <p class="card-text">
+        Créateur : {{ playlist.creator }} <br>
+        Style : {{ playlist.style }} <br>
+        Clics : {{ playlist.clicks }}
+      </p>
+      <button class="btn btn-primary btn-sm">
+        Voir détails
+      </button>
+    </div>
+  </div>
+</div>
