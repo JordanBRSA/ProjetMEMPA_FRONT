@@ -1,17 +1,19 @@
-<div class="container mt-4">
-  <h2 class="mb-4">Liste des playlists</h2>
 
-  <div *ngFor="let playlist of playlists" class="card mb-3 shadow-sm">
+
+<div class="container mt-4 d-flex flex-column">
+  <div class="d-flex flex-row">
+    <h1 class="title flex-fill">Playlist</h1>
+    <button class="btn-add" (click)="onCreatePlaylist()">
+      <img ngSrc="images/plus_icon.png" alt="Ajouter une playlist" height="47" width="47" priority>
+    </button>
+  </div>
+  <div *ngFor="let playlist of playlists" class="mb-3">
     <div class="card-body">
-      <h5 class="card-title">{{ playlist.name }}</h5>
-      <p class="card-text">
-        Créateur : {{ playlist.creator }} <br>
-        Style : {{ playlist.style }} <br>
-        Clics : {{ playlist.clicks }}
-      </p>
-      <button class="btn btn-primary btn-sm">
-        Voir détails
-      </button>
+      <h5 class="card-title">Playlist de : {{ playlist.creator }} </h5>
+        <div class="d-flex flex-row justify-content-between px-3 card-info">
+          <div>Style : {{ playlist.style }}</div>
+          <div>Clics : {{ playlist.clicks }}</div>
+        </div>
     </div>
   </div>
 </div>

@@ -16,9 +16,9 @@ export interface Playlist {
 export class PlaylistService {
 
   private mockPlaylists: Playlist[] = [
-    { id: 1, name: 'Pop 2025', creator: 'Jordan', clicks: 12, style: 'Pop' },
-    { id: 2, name: 'Rock Classics', creator: 'Yohan', clicks: 30, style: 'Rock' },
-    { id: 3, name: 'Chill Vibes', creator: 'Nolan', clicks: 5, style: 'Chill' }
+    { id: 1, name: 'Pop 2025', creator: 'Mr.Dupont', clicks: 12, style: 'Pop' },
+    { id: 2, name: 'Rock Classics', creator: 'Mr.X', clicks: 30, style: 'Rock' },
+    { id: 3, name: 'Chill Vibes', creator: "Mr.Y", clicks: 5, style: 'Chill' }
   ];
 
   getPlaylists(): Observable<Playlist[]> {
