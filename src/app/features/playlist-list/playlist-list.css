@@ -1,3 +1,10 @@
+.container{
+  background: var(--green-bg);
+  padding: 10px 40px 25px 40px;
+  border-radius: var(--radius);
+}
+
+
 .title{
   font-family: var(--title-font), serif;
   color: var(--title-color);
@@ -6,6 +13,7 @@
   flex-direction: column;
   align-items: center;
   padding: var(--title-padding);
+
 }
 
 .card-body{
@@ -25,15 +33,18 @@
   font-weight: 300;
 }
 
-.btn-add {
+.btn{
   background: none;
   border: none;
   padding: 0;
-  cursor: pointer;
   transition: transform 0.2s ease;
 }
 
-.btn-add:hover {
-  transform: scale(1.1); /* Petit effet de zoom sympa au survol */
+.btn:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
+.filtre-txt{
+  margin: 7px;
+}

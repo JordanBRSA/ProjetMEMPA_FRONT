@@ -6,10 +6,20 @@
   --title-font: 'Inter', sans-serif;
   --title-color: #FFFFFF;
   --title-padding: 25px;
+  --green-bg: #2E3729;
+  --radius: 30px;
 }
 
-body {
+html, body {
+  margin: 0;
+  padding: 0;
   background-color: var(--main-bg);
+  height: 100%;
+}
+
+p{
+  font-family: var(--title-font), sans-serif;
+  color: var(--title-color);
 }
 
 
