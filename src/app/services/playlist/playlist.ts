@@ -16,8 +16,8 @@ export interface Playlist {
 
 export class PlaylistService {
 
-  private apiUrl = 'http://localhost:4200/playlists';
-  constructor(private http: HttpClient) {}
+  // private apiUrl = 'http://localhost:4200/playlist';
+  // constructor(private http: HttpClient) {}
 
   private mockPlaylists: Playlist[] = [
     { id: 1, name: 'Pop 2025', creator: 'Mr.Dupont', clicks: 12, style: 'Pop' },
@@ -29,9 +29,14 @@ export class PlaylistService {
     return of(this.mockPlaylists);
   }
 
-  getPlaylistById(id: string | null): Observable<any> {
-    return this.http.get(`${this.apiUrl}/${id}`);
+  getPlaylistById(id: string): Observable<Playlist | undefined> {
+    const numericId = Number(id);
+    const playlist = this.mockPlaylists.find(playlist => playlist.id === numericId);
+    return of(playlist);
+
+    // TODO A CHANGER UNE FOIS API NODEJS
   }
+
 
 }
 

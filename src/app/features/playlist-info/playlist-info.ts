@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {PlaylistService} from '../../services/playlist/playlist';
+import {NgForOf, NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-playlist-info',
-  imports: [],
+  imports: [
+    NgIf,
+    NgForOf
+  ],
   templateUrl: './playlist-info.html',
   styleUrl: './playlist-info.css',
 })
@@ -14,10 +18,14 @@ export class PlaylistInfo {
   constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {
   }
 
-  ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.playlistService.getPlaylistById(id).subscribe((data: any) => {
-      this.playlist = data;
-    });
+
+  ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id'); // récupère l'id depuis l'URL
+    if (id) {
+      this.playlistService.getPlaylistById(id).subscribe(data => {
+        this.playlist = data;
+      });
+
+    }
   }
 }

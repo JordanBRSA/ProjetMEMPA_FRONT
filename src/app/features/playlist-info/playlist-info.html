@@ -1,1 +1,16 @@
-<p>playlist-info works!</p>
+<div *ngIf="playlist">
+  <h2>{{ playlist.name }}</h2>
+  <p>Créateur : {{ playlist.creator }}</p>
+  <p>Style : {{ playlist.style }}</p>
+  <p>Clics : {{ playlist.clicks }}</p>
+  <h3>Morceaux :</h3>
+  <ul>
+    <li *ngFor="let music of playlist.musics">
+      {{ music.title }} - {{ music.artist }}
+    </li>
+  </ul>
+  <h3>Contributeurs :</h3>
+  <ul>
+    <li *ngFor="let contributor of playlist.contributors">{{ contributor }}</li>
+  </ul>
+</div>
