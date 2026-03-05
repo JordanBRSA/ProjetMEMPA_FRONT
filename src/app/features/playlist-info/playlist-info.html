@@ -1,12 +1,17 @@
-<div class="container d-flex flex-column" >
+<div class="container d-flex flex-column " >
   <div class="d-flex flex-column justify-content-between">
 
     <div *ngIf="playlist" >
       <div class="d-flex flex-row justify-content-between">
         <h2 class="title">{{ playlist.name }}</h2>
-        <button class="btn btn-sm" (click)="openDeleteModal()">
-          <img src="images/trash_icon.png" alt="Supprimer" width="20" height="20">
-        </button>
+        <div class="d-flex flex-row justify-content-around w-25 ">
+          <button class="btn btn-sm" (click)="openDeleteModal()">
+            <img src="images/trash_icon.png" alt="Supprimer" width="32" height="32">
+          </button>
+          <button class="btn btn-sm" (click)="addMusic()">
+            <img src="images/plus_icon.png" alt="Supprimer" width="32" height="32">
+          </button>
+        </div>
       </div>
 
       <div class="d-flex flex-row justify-content-between">

@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { PlaylistList } from './features/playlist-list/playlist-list';
 import {Home} from './pages/home/home';
 import {PlaylistInfo} from './features/playlist-info/playlist-info';
+import {MusicAdd} from './features/music-add/music-add';
 
 
 export const routes: Routes = [

@@ -5,7 +5,6 @@ import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-playlist-list',
-  standalone: true,
   imports: [CommonModule, NgOptimizedImage, RouterLink],
   templateUrl: './playlist-list.html',
   styleUrl: './playlist-list.css'

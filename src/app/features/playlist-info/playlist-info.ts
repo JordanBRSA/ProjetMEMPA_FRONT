@@ -19,7 +19,6 @@ export class PlaylistInfo {
 
   constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {}
 
-
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id'); // récupère l'id depuis l'URL
     if (id) {
@@ -44,4 +43,8 @@ export class PlaylistInfo {
   //   console.log('Playlist supprimée !');
   //  });
   //}
+
+  protected addMusic() {
+    alert("Direction page newMusic...");
+  }
 }
