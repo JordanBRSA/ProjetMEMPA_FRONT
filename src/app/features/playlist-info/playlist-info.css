@@ -16,10 +16,14 @@
 
 }
 
-.card-body{
+.card-body-contributors{
   background-color: #705454;
   padding: 15px;
+}
 
+.card-body-musics{
+  background-color: #A7A7A7;
+  padding: 15px;
 }
 
 .card-title{
@@ -53,9 +57,17 @@
   background: #202A1B;
   border-radius: var(--radius);
   padding: 10px 40px 25px 40px;
-}
-
-.item-contributeur{
-  background: #705454;
 
 }
+
+.container-musique{
+  display: flex;
+  flex-direction: column;
+  background: #202A1B;
+  border-radius: var(--radius);
+  padding: 10px 40px 25px 40px;
+}
+
+
+
+

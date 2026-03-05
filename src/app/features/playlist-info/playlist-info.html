@@ -1,37 +1,50 @@
 <div class="container d-flex flex-column" >
   <div class="d-flex flex-column justify-content-between">
 
-
     <div *ngIf="playlist">
       <div class="title d-flex w-100 justify-content-center" >
         <h2>{{ playlist.name }}</h2>
       </div>
 
-
-      <div class="d-flex flex-column">
+<div class="d-flex flex-row justify-content-between">
+<div class="d-flex flex-column justify-content-center">
+      <div class="d-flex flex-column align-items-center">
         <p>Créée par : {{ playlist.creator }}</p>
         <p>Style de la Playlist: {{ playlist.style }}</p>
         <p>Nombre de cliques : {{ playlist.clicks }}</p>
       </div>
 
-      <div class="container-contributeur">
-        <h3 class="title">Contributeurs</h3>
-          <div *ngFor="let contributor of playlist.contributors" class="mb-3">
-            <div class="card-body">
-              <div class="card-title">
-                {{ contributor.name }}
+
+      <div class="d-flex flex-row justify-content-between">
+        <div class="container-contributeur w-100 mx-3" >
+          <h3 class="title">Contributeurs</h3>
+            <div *ngFor="let contributor of playlist.contributors" class="mb-3">
+              <div class="card-body-contributors">
+                <div class="card-title">
+                  {{ contributor.name }}
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+</div>
+
+      <div class="container-musique w-75 mx-3">
+        <h3 class="title">Musiques</h3>
+        <div *ngFor="let music of playlist.musics" class="mb-3">
+          <div class="card-body-musics">
+            <div class="card-title">
+              <div class="d-flex flex-column justify-content-between px-3 card-info">
+                <div>{{ music.title }}</div>
+                <div>{{ music.artist }}</div>
               </div>
             </div>
           </div>
+        </div>
       </div>
-
-
-      <h3>Morceaux :</h3>
-      <ul>
-        <li *ngFor="let music of playlist.musics">
-          {{ music.title }} - {{ music.artist }}
-        </li>
-      </ul>
     </div>
   </div>
 </div>
+</div>
+
+
