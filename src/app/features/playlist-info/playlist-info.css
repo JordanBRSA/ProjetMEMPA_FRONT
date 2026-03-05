@@ -17,8 +17,9 @@
 }
 
 .card-body{
-  background-color: #574A3B;
+  background-color: #705454;
   padding: 15px;
+
 }
 
 .card-title{
@@ -45,6 +46,16 @@
   cursor: pointer;
 }
 
-.filtre-txt{
-  margin: 7px;
+
+.container-contributeur{
+  display: flex;
+  flex-direction: column;
+  background: #202A1B;
+  border-radius: var(--radius);
+  padding: 10px 40px 25px 40px;
+}
+
+.item-contributeur{
+  background: #705454;
+
 }

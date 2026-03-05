@@ -1,16 +1,37 @@
-<div *ngIf="playlist">
-  <h2>{{ playlist.name }}</h2>
-  <p>Créateur : {{ playlist.creator }}</p>
-  <p>Style : {{ playlist.style }}</p>
-  <p>Clics : {{ playlist.clicks }}</p>
-  <h3>Morceaux :</h3>
-  <ul>
-    <li *ngFor="let music of playlist.musics">
-      {{ music.title }} - {{ music.artist }}
-    </li>
-  </ul>
-  <h3>Contributeurs :</h3>
-  <ul>
-    <li *ngFor="let contributor of playlist.contributors">{{ contributor }}</li>
-  </ul>
+<div class="container d-flex flex-column" >
+  <div class="d-flex flex-column justify-content-between">
+
+
+    <div *ngIf="playlist">
+      <div class="title d-flex w-100 justify-content-center" >
+        <h2>{{ playlist.name }}</h2>
+      </div>
+
+
+      <div class="d-flex flex-column">
+        <p>Créée par : {{ playlist.creator }}</p>
+        <p>Style de la Playlist: {{ playlist.style }}</p>
+        <p>Nombre de cliques : {{ playlist.clicks }}</p>
+      </div>
+
+      <div class="container-contributeur">
+        <h3 class="title">Contributeurs</h3>
+          <div *ngFor="let contributor of playlist.contributors" class="mb-3">
+            <div class="card-body">
+              <div class="card-title">
+                {{ contributor.name }}
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+      <h3>Morceaux :</h3>
+      <ul>
+        <li *ngFor="let music of playlist.musics">
+          {{ music.title }} - {{ music.artist }}
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>

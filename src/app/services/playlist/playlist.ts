@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import { Music} from '../../models/music';
+import {Contribute} from '../../models/contribute';
 
 export interface Playlist {
   id: number;
@@ -8,6 +10,8 @@ export interface Playlist {
   creator: string;
   clicks: number;
   style: string;
+  musics: Music[];
+  contributors: Contribute[];
 }
 
 @Injectable({
@@ -20,9 +24,91 @@ export class PlaylistService {
   // constructor(private http: HttpClient) {}
 
   private mockPlaylists: Playlist[] = [
-    { id: 1, name: 'Pop 2025', creator: 'Mr.Dupont', clicks: 12, style: 'Pop' },
-    { id: 2, name: 'Rock Classics', creator: 'Mr.X', clicks: 30, style: 'Rock' },
-    { id: 3, name: 'Chill Vibes', creator: "Mr.Y", clicks: 5, style: 'Chill' }
+    {
+      id: 1,
+      name: 'Pop 2025',
+      creator: 'Mr.Dupont',
+      clicks: 12,
+      style: 'Pop',
+      musics: [
+        {
+          title: 'Blinding Lights',
+          artist: 'The Weeknd'
+        },
+        {
+          title: 'Levitating',
+          artist: 'Dua Lipa'
+        },
+        {
+          title: 'As It Was',
+          artist: 'Harry Styles'
+        }
+      ],
+      contributors :  [
+        {
+          name: 'Dupont'
+        },
+        {
+          name:'Delaroche'
+        }
+      ]
+    },
+
+    {
+      id: 2,
+      name: 'Rock Classics',
+      creator: 'Mr.X',
+      clicks: 30,
+      style: 'Rock',
+      musics: [
+        {
+          title: 'Bohemian Rhapsody',
+          artist: 'Queen'
+        },
+        {
+          title: 'Back in Black',
+          artist: 'AC/DC'
+        },
+        {
+          title: 'Smells Like Teen Spirit',
+          artist: 'Nirvana'
+        }
+      ],
+      contributors :  [
+        {
+          name: 'Henry'
+        },
+        {
+          name:'Lacroix'
+        }
+      ]
+    },
+
+    {
+      id: 3,
+      name: 'Chill Vibes',
+      creator: 'Mr.Y',
+      clicks: 5,
+      style: 'Chill',
+      musics: [
+        {
+          title: 'Sunset Lover',
+          artist: 'Petit Biscuit'
+        },
+        {
+          title: 'Weightless',
+          artist: 'Marconi Union'
+        }
+      ],
+      contributors :  [
+        {
+          name: 'Yves'
+        },
+        {
+          name:'Delaroche'
+        }
+      ]
+    }
   ];
 
   getPlaylists(): Observable<Playlist[]> {
