@@ -123,6 +123,11 @@ export class PlaylistService {
     // TODO A CHANGER UNE FOIS API NODEJS
   }
 
+  // TODO A CHANGER UNE FOIS API NODEJS pour delete
+  // deletePlaylist(id: number): Observable<any> {
+  // return this.http.delete(`${this.apiUrl}/${id}`);
+  // }
+
 
 }
 

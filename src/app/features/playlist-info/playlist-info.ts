@@ -14,9 +14,10 @@ import {NgForOf, NgIf} from '@angular/common';
 })
 export class PlaylistInfo {
   playlist: any;
+  showDeleteModal = false;
 
-  constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {
-  }
+
+  constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {}
 
 
   ngOnInit() {
@@ -28,4 +29,19 @@ export class PlaylistInfo {
 
     }
   }
+
+  protected closeDeleteModal() {
+    this.showDeleteModal = false;
+  }
+
+  protected openDeleteModal() {
+    this.showDeleteModal = true;
+  }
+
+  // protected confirmDelete() {
+  //   this.playlistService.deletePlaylist(this.playlist.id).subscribe(() => {
+  //   this.showDeleteModal = false;
+  //   console.log('Playlist supprimée !');
+  //  });
+  //}
 }
