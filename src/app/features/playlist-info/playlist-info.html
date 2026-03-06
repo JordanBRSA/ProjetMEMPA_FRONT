@@ -8,8 +8,8 @@
           <button class="btn btn-sm" (click)="openDeleteModal()">
             <img src="images/trash_icon.png" alt="Supprimer" width="32" height="32">
           </button>
-          <button class="btn btn-sm" (click)="addMusic()">
-            <img src="images/plus_icon.png" alt="Supprimer" width="32" height="32">
+          <button class="btn btn-sm" [routerLink]="['/playlist', playlist.id, 'add']">
+              <img src="images/plus_icon.png" alt="Supprimer" width="32" height="32">
           </button>
         </div>
       </div>

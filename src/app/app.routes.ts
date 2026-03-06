@@ -12,5 +12,8 @@ export const routes: Routes = [
   },{
     path: 'playlist/:id',
     component: PlaylistInfo
+  },{
+    path: 'playlist/:id/add',
+    component: MusicAdd
   }
 ];

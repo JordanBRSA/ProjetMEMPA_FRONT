@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PlaylistService} from '../../services/playlist/playlist';
 import {NgForOf, NgIf} from '@angular/common';
 
@@ -7,7 +7,8 @@ import {NgForOf, NgIf} from '@angular/common';
   selector: 'app-playlist-info',
   imports: [
     NgIf,
-    NgForOf
+    NgForOf,
+    RouterLink
   ],
   templateUrl: './playlist-info.html',
   styleUrl: './playlist-info.css',
