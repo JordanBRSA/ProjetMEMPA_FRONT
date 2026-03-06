@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 import {PlaylistService} from '../../services/playlist/playlist';
 import {NgForOf, NgIf} from '@angular/common';
+import {PlayerService} from '../../services/player/player';
 
 @Component({
   selector: 'app-playlist-info',
@@ -18,16 +19,31 @@ export class PlaylistInfo {
   showDeleteModal = false;
 
 
-  constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {}
+  constructor(private route: ActivatedRoute,
+              private playlistService: PlaylistService,
+              private playerService: PlayerService,
+              private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id'); // récupère l'id depuis l'URL
+
+    const id = this.route.snapshot.paramMap.get('id');
+
     if (id) {
       this.playlistService.getPlaylistById(id).subscribe(data => {
-        this.playlist = data;
-      });
 
+        console.log("Playlist reçu :", data);
+
+        this.playlist = data;
+        this.cdr.detectChanges();
+
+      });
     }
+
+  }
+
+  playMusic(music: any) {
+    this.playerService.play(music);
   }
 
   protected closeDeleteModal() {

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { PlaylistService, Playlist } from '../../services/playlist/playlist';
 import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-playlist-list',
+  standalone: true,
   imports: [CommonModule, NgOptimizedImage, RouterLink],
   templateUrl: './playlist-list.html',
   styleUrl: './playlist-list.css'
@@ -12,12 +13,23 @@ import {RouterLink} from '@angular/router';
 export class PlaylistList implements OnInit {
 
   playlists: Playlist[] = [];
+  isLoading = true;
 
-  constructor(private playlistService: PlaylistService) {}
+  constructor(private playlistService: PlaylistService,
+              private cdr: ChangeDetectorRef ) {}
 
   ngOnInit(): void {
-    this.playlistService.getPlaylists().subscribe(data => {
-      this.playlists = data;
+    console.log('Appel de getPlaylists...');
+    this.playlistService.getPlaylists().subscribe({
+      next: (data) => {
+        console.log('Données reçues :', data); // Doit afficher l'array de 5 playlists
+        this.playlists = data;
+        this.isLoading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Erreur API détaillée :', err);
+      }
     });
   }
 
