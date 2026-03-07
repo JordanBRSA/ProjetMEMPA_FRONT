@@ -5,15 +5,13 @@
       <div *ngIf="playlist">
         <p>Style : <span class="">{{playlist.style}} ( obligatoire )</span></p>
 
-
-
           <form (ngSubmit)="addMusic()" class="d-flex flex-column align-items-center">
             <div class="d-flex flex-column justify-content-between w-100 pb-4">
               <div class="d-flex flex-row justify-content-between my-2" >
                 <label for="title" >Titre : </label>
                 <input
                   id="title"
-                  type="string"
+                  type="text"
                   [(ngModel)]="title"
                   name="title"
                   required
@@ -24,7 +22,7 @@
                 <label for="title">Artiste</label>
                 <input
                   id="artist"
-                  type="string"
+                  type="text"
                   [(ngModel)]="artist"
                   name="artist"
                   required
@@ -36,8 +34,6 @@
               <span [@if]="!loading">AJOUTER</span>
             </button>
           </form>
-
-
         <p class="message" [@if]="message">{{ message }}</p>
       </div>
     </div>

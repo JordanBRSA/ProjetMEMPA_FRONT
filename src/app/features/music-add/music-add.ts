@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForOf, NgIf, NgOptimizedImage} from '@angular/common';
 import {PlaylistService} from '../../services/playlist/playlist';
@@ -12,6 +12,7 @@ import {FormsModule} from '@angular/forms';
   ],
   templateUrl: './music-add.html',
   styleUrl: './music-add.css',
+  standalone: true
 })
 export class MusicAdd {
   playlist: any;
@@ -20,7 +21,11 @@ export class MusicAdd {
   title: any;
   artist: any;
 
-  constructor(private route: ActivatedRoute, private playlistService: PlaylistService) {}
+  constructor(private route: ActivatedRoute,
+              private playlistService: PlaylistService,
+              private cdr: ChangeDetectorRef
+
+  ) {}
 
   addMusic() {
     if (this.title.length == 0) {
@@ -37,6 +42,7 @@ export class MusicAdd {
     if (id) {
       this.playlistService.getPlaylistById(id).subscribe(data => {
         this.playlist = data;
+        this.cdr.detectChanges();
       });
 
     }

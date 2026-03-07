@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { PlayerService } from '../../services/player/player';
 import { Music } from '../../models/music';
 import {ActivatedRoute} from '@angular/router';
@@ -7,6 +7,7 @@ import {PlaylistService} from '../../services/playlist/playlist';
 @Component({
   selector: 'app-player',
   templateUrl: './player.html',
+  standalone: true,
   styleUrl: './player.css'
 })
 export class Player implements OnInit {
@@ -18,7 +19,7 @@ export class Player implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private playlistService: PlaylistService,
-    private playerService: PlayerService
+    private playerService: PlayerService,
   ) {}
 
   ngOnInit() {

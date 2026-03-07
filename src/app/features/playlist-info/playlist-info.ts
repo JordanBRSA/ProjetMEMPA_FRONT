@@ -13,6 +13,7 @@ import {PlayerService} from '../../services/player/player';
   ],
   templateUrl: './playlist-info.html',
   styleUrl: './playlist-info.css',
+  standalone: true
 })
 export class PlaylistInfo {
   playlist: any;
