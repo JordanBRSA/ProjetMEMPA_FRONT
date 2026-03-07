@@ -16,6 +16,12 @@
 
 }
 
+.title-song{
+  font-family: var(--title-font), serif;
+  color: var(--title-color);
+  font-weight: 800;
+}
+
 .card-body-contributors{
   background-color: #705454;
   padding: 15px;

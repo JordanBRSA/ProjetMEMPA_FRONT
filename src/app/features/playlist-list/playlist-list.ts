@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { PlaylistService, Playlist } from '../../services/playlist/playlist';
 import {RouterLink} from '@angular/router';
+import {Music} from '../../models/music';
 
 @Component({
   selector: 'app-playlist-list',
@@ -14,6 +15,7 @@ export class PlaylistList implements OnInit {
 
   playlists: Playlist[] = [];
   isLoading = true;
+  playerService: any;
 
   constructor(private playlistService: PlaylistService,
               private cdr: ChangeDetectorRef ) {}
@@ -31,6 +33,10 @@ export class PlaylistList implements OnInit {
         console.error('Erreur API détaillée :', err);
       }
     });
+  }
+
+  onPlayMusic(music: Music) {
+    this.playerService.playMusic(music);
   }
 
   onCreatePlaylist() {

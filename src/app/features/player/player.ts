@@ -1,50 +1,46 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { PlayerService } from '../../services/player/player';
-import { Music } from '../../models/music';
-import {ActivatedRoute} from '@angular/router';
-import {PlaylistService} from '../../services/playlist/playlist';
+import {Observable} from 'rxjs';
+import {Music} from '../../models/music';
 
 @Component({
   selector: 'app-player',
-  templateUrl: './player.html',
   standalone: true,
+  imports: [CommonModule],
+  templateUrl: './player.html',
   styleUrl: './player.css'
 })
-export class Player implements OnInit {
+export class Player {
+  // On injecte le service proprement
+  public playerService = inject(PlayerService);
 
-  audio = new Audio();
-  music: Music | null = null;
-  isPlaying = false;
+  // On lie les flux de données
+  music: Observable<Music | null> = this.playerService.currentMusic;
+  isPlaying: Observable<boolean> = this.playerService.isPlaying;
+  currentTime: Observable<number> = this.playerService.currentTime;
 
-  constructor(
-    private route: ActivatedRoute,
-    private playlistService: PlaylistService,
-    private playerService: PlayerService,
-  ) {}
-
-  ngOnInit() {
-    this.playerService.currentMusic$.subscribe(music => {
-      if (music) {
-        this.audio.src = music.url;
-        this.audio.play();
-        this.isPlaying = true;
-      }
-    });
+  onTogglePlay() {
+    console.log("Clic détecté");
+    this.playerService.togglePlay();
   }
 
-  playMusic(music:any){
-    this.playerService.play(music);
+  onSliderChange(event: any) {
+    this.playerService.seek(event.target.value);
   }
 
-  togglePlay() {
-
-    if (this.isPlaying) {
-      this.audio.pause();
-    } else {
-      this.audio.play();
-    }
-
-    this.isPlaying = !this.isPlaying;
+  formatTime(time: number | null): string {
+    if (!time) return "0:00";
+    const mins = Math.floor(time / 60);
+    const secs = Math.floor(time % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   }
 
+  onNext() {
+    this.playerService.next();
+  }
+
+  onPrevious() {
+    this.playerService.previous();
+  }
 }

@@ -44,7 +44,7 @@ export class PlaylistInfo {
   }
 
   playMusic(music: any) {
-    this.playerService.play(music);
+    this.playerService.playMusic(music, this.playlist.musics);
   }
 
   protected closeDeleteModal() {

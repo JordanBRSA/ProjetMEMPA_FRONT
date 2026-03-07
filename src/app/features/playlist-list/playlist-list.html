@@ -10,7 +10,7 @@
       <img ngSrc="images/plus_icon.png" alt="Ajouter une playlist" height="47" width="47" priority>
     </button>
   </div>
-  <div *ngFor="let playlist of playlists" class="mb-3">
+  <div *ngFor="let playlist of playlists" (click)="playerService.playMusic(playlist.musics[0])" class="mb-3">
     <a [routerLink]="['/playlist', playlist.id]" class="text-decoration-none text-dark">
     <div class="card-body">
       <h5 class="card-title">Playlist de : {{ playlist.creator }} </h5>
