@@ -14,11 +14,14 @@
   flex: 1;
   min-height: 0;
 
+
 }
 .right-column{
   padding: 10px;
   display: flex;
+  height: 90%;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 
@@ -28,6 +31,7 @@
   flex-direction: column;
   flex: 1;
   min-height: 0;
+
 }
 
 .player-bar {

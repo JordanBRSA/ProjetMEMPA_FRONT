@@ -4,13 +4,14 @@ import {Player} from './features/player/player';
 import {EnCours} from './features/en-cours/en-cours';
 import {PlayerService} from './services/player/player';
 import {CommonModule} from '@angular/common';
+import {FileAttente} from './features/file-attente/file-attente';
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet,
     CommonModule,
     Player,
-    EnCours
+    EnCours, FileAttente
   ],
   templateUrl: './app.html',
   standalone: true,

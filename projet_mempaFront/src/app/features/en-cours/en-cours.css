@@ -16,10 +16,18 @@
 
 }
 
-.title-song{
+.title-song {
   font-family: var(--title-font), serif;
   color: var(--title-color);
   font-weight: 800;
+  margin: 0;
+}
+
+.card-info {
+  font-family: var(--title-font), serif;
+  color: var(--title-color);
+  font-weight: 300;
+  margin: 0;
 }
 
 .card-body-contributors{
@@ -31,12 +39,6 @@
   background-color: #A7A7A7;
   padding: 15px;
 
-}
-
-.card-title{
-  font-family: var(--title-font), serif;
-  color: var(--title-color);
-  font-weight: 800;
 }
 
 .card-info{

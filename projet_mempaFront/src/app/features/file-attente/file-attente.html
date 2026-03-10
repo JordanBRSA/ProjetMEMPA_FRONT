@@ -1,0 +1,17 @@
+<div class="container d-flex flex-column w-100">
+  <h1 class="title">File d'attente</h1>
+
+  <div *ngIf="(playlist$ | async)?.length ?? 0 > 0; else noMusic">
+    <div *ngFor="let music of playlist$ | async"
+         (click)="playMusic(music)"
+         class="card-body-musics my-2"
+         style="cursor: pointer;">
+      <p class="title-song">{{ music.title }}</p>
+      <p class="card-info">{{ music.artist }}</p>
+    </div>
+  </div>
+
+  <ng-template #noMusic>
+    <div class="music-info"><p class="title">Aucun titre</p></div>
+  </ng-template>
+</div>

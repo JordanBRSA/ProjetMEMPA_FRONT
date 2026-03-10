@@ -5,7 +5,7 @@ import { Contribute } from '../models/contribute';
 export const MOCK_MUSICS: Music[] = [
   { id: 1, title: 'Blinding Lights',    artist: 'The Weeknd',    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3' },
   { id: 2, title: 'Levitating',         artist: 'Dua Lipa',      url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3' },
-  { id: 3, title: 'HUMBLE.',            artist: 'Kendrick Lamar', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
+  { id: 3, title: 'HUMBLE.',            artist: 'Kendrick Lamar',url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3' },
   { id: 4, title: 'Bohemian Rhapsody',  artist: 'Queen',         url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3' },
   { id: 5, title: 'Starboy',            artist: 'The Weeknd',    url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3' },
   { id: 6, title: 'God\'s Plan',        artist: 'Drake',         url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3' },
