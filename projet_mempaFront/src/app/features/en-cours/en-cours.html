@@ -1,0 +1,17 @@
+
+<div class="container d-flex flex-column w-100">
+
+    <h1 class="title">En cours...</h1>
+
+
+      <div class="music-info"  class="card-body-musics my-2"
+           style="cursor: pointer;" *ngIf="currentMusic | async as current; else noMusic">
+        <p class="title-song">{{ current.title }}</p>
+        <p class="artist-song">{{ current.artist }}</p>
+      </div>
+      <ng-template #noMusic>
+        <div class="music-info"><p class="title">Aucun titre</p></div>
+      </ng-template>
+
+      <!--  TODO INFO AJOUT DE LA MUSIQUE DANS LA PLAYLIST -->
+</div>

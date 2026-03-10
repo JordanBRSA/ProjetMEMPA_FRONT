@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+:root {
+  --main-bg: #242424;
+  --title-font: 'Inter', sans-serif;
+  --title-color: #FFFFFF;
+  --title-padding: 25px;
+  --green-bg: #2E3729;
+  --radius: 30px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--main-bg);
+  height: 100%;
+}
+
+p{
+  font-family: var(--title-font), sans-serif;
+  color: var(--title-color);
+}
+
+
