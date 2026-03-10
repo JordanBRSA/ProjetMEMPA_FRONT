@@ -1,15 +1,25 @@
 <div class="main-grid">
-  <header class="header"> </header>
 
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
+    <!--  RECHERCHE -->
+  <div class="main-container">
+    <main class="playlists">
+      <router-outlet></router-outlet>
+    </main>
 
-  <aside class="sidebar">
-    <app-en-cours></app-en-cours>
-  </aside>
+    <aside class="right-column">
 
+      <div class="queue">
+        <!-- <app-file-attente></app-file-attente> -->
+      </div>
+
+      <div class="current">
+        <app-en-cours></app-en-cours>
+      </div>
+
+    </aside>
+  </div>
   <footer class="player-bar">
     <app-player></app-player>
-   </footer>
+  </footer>
+
 </div>

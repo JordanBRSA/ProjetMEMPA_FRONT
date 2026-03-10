@@ -1,7 +1,18 @@
-.container{
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.playlist-info-container{
   background: var(--green-bg);
   padding: 10px 40px 25px 40px;
   border-radius: var(--radius);
+  width: 100% ;
+  flex: 1;
+  min-height: 0;
 }
 
 

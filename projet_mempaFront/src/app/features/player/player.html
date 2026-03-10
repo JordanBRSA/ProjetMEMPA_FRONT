@@ -1,35 +1,37 @@
-<div class="player-container d-flex justify-content-between align-items-center w-100">
-  <div class="player-controls " style="flex-basis: 0;">
-    <div class="progress-container">
-      <span>{{ formatTime((currentTime | async)) }}</span>
-      <input type="range"
-             [value]="currentTime | async"
-             [max]="playerService.audio.duration || 0"
-             (input)="onSliderChange($event)">
-      <span>{{ formatTime(playerService.audio.duration) }}</span>
+<div class="d-flex flex-row justify-content-center">
+  <div class="player-container d-flex justify-content-between align-items-center">
+    <div class="player-controls " style="flex-basis: 0;">
+      <div class="progress-container">
+        <span>{{ formatTime((currentTime | async)) }}</span>
+        <input type="range"
+               [value]="currentTime | async"
+               [max]="playerService.audio.duration || 0"
+               (input)="onSliderChange($event)">
+        <span>{{ formatTime(playerService.audio.duration) }}</span>
+      </div>
     </div>
+
+    <div class="control-buttons">
+      <button class="btn-icon" (click)="onPrevious()">
+        <img src="images/previous-icon.png" alt="Précédent">
+      </button>
+
+      <button class="btn-icon btn-play" (click)="onTogglePlay()">
+        <img [src]="(isPlaying | async) ? 'images/pause-icon.png' : 'images/play-icon.png'"
+             alt="Play/Pause">
+      </button>
+
+      <button class="btn-icon" (click)="onNext()">
+        <img src="images/skip-icon.png" alt="Suivant">
+      </button>
+    </div>
+
+    <div class="volume-controls  ">
+      <span class="btn-icon">
+        <img src="images/speaker-icon.png" alt="Volume" class="img-volume">
+      </span>
+      <input type="range" class="volume-slider" (input)="playerService.audio.volume = $any($event.target).value / 100">
+    </div>
+
   </div>
-
-  <div class="control-buttons">
-    <button class="btn-icon" (click)="onPrevious()">
-      <img src="images/previous-icon.png" alt="Précédent">
-    </button>
-
-    <button class="btn-icon btn-play" (click)="onTogglePlay()">
-      <img [src]="(isPlaying | async) ? 'images/pause-icon.png' : 'images/play-icon.png'"
-           alt="Play/Pause">
-    </button>
-
-    <button class="btn-icon" (click)="onNext()">
-      <img src="images/skip-icon.png" alt="Suivant">
-    </button>
-  </div>
-
-  <div class="volume-controls  ">
-    <span class="btn-icon">
-      <img src="images/speaker-icon.png" alt="Volume" class="img-volume">
-    </span>
-    <input type="range" class="volume-slider" (input)="playerService.audio.volume = $any($event.target).value / 100">
-  </div>
-
 </div>
