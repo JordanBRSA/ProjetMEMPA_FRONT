@@ -5,7 +5,6 @@ import {PlaylistInfo} from '../../features/playlist-info/playlist-info';
 @Component({
   selector: 'app-info-music',
   imports: [
-    PlaylistList,
     PlaylistInfo
   ],
   templateUrl: './info-music.html',
