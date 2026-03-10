@@ -1,3 +1,9 @@
+/node_modules/
+../.idea
+/projet_mempafront
+bd.sql
+/package.json
+/package-lock.json
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
@@ -21,12 +27,12 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-!.vscode/mcp.json
+projet_mempeFront/.vscode/*
+!projet_mempeFront/.vscode/settings.json
+!projet_mempeFront/.vscode/tasks.json
+!projet_mempeFront/.vscode/launch.json
+!projet_mempeFront/.vscode/extensions.json
+!projet_mempeFront/.vscode/mcp.json
 .history/*
 
 # Miscellaneous
