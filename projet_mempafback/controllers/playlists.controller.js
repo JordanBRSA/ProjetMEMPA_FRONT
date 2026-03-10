@@ -1,3 +1,4 @@
+const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
 
 // GET /api/playlists
@@ -45,4 +46,27 @@ const createPlaylist = async (req, res) => {
     }
 };
 
-module.exports = { getAllPlaylists, getPlaylistById, createPlaylist };
+
+// GET /api/playlists/search?r=:query
+const getPlaylistBySearch = async (req, res) => {
+    const { playlist } = getMusicApp(req).models;
+    try {
+        const result = await playlist.findAll({
+            where: {
+                [Op.or]: [
+                    {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                    {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                ]
+            }
+        });
+        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        res.json(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+};
+
+
+
+module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch };
