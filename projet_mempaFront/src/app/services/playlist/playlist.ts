@@ -33,7 +33,8 @@ export class PlaylistService {
     return this.http.get<Playlist[]>(`${this.apiUrl}/playlists`);
   }
 
-  getPlaylistById(id: string){
+  getPlaylistById(id: string): Observable<any> {
+    if (USE_MOCK) return of(MOCK_PLAYLISTS.find(p => p.id === +id));
     return this.http.get(`${this.apiUrl}/playlists/${id}`);
   }
 

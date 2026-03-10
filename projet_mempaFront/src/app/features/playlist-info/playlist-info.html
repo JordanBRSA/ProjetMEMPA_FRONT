@@ -9,7 +9,7 @@
             <img src="images/trash_icon.png" alt="Supprimer" width="32" height="32">
           </button>
           <button class="btn btn-sm" [routerLink]="['/playlist', playlist.id, 'add']">
-              <img src="images/plus_icon.png" alt="Supprimer" width="32" height="32">
+            <img src="images/plus_icon.png" alt="Supprimer" width="32" height="32">
           </button>
         </div>
       </div>
@@ -40,9 +40,9 @@
         <div class="container-musique w-75 mx-3">
           <h3 class="title">Musiques</h3>
           <div *ngFor="let music of playlist.musics"
-           (click)="playMusic(music)"
-           class="card-body-musics my-2"
-           style="cursor: pointer;">
+               (click)="playMusic(music)"
+               class="card-body-musics my-2"
+               style="cursor: pointer;">
             <div class="card-title">
               <div class="fw-bold">{{ music.title }}</div>
               <div>{{ music.artist }}</div>
@@ -64,4 +64,3 @@
     </div>
   </div>
 </div>
-

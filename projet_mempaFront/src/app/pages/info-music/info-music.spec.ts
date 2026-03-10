@@ -1,18 +1,18 @@
 /* import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Home } from './home';
+import { InfoMusic } from './info-music';
 
-describe('Home', () => {
-  let component: Home;
-  let fixture: ComponentFixture<Home>;
+describe('InfoMusic', () => {
+  let component: InfoMusic;
+  let fixture: ComponentFixture<InfoMusic>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Home]
+      imports: [InfoMusic]
     })
-    .compileComponents();
+      .compileComponents();
 
-    fixture = TestBed.createComponent(Home);
+    fixture = TestBed.createComponent(InfoMusic);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
@@ -21,6 +21,4 @@ describe('Home', () => {
     expect(component).toBeTruthy();
   });
 });
-
-
- */
+*/
