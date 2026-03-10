@@ -50,15 +50,44 @@ const createPlaylist = async (req, res) => {
 // GET /api/playlists/search?r=:query
 const getPlaylistBySearch = async (req, res) => {
     const { playlist } = getMusicApp(req).models;
+    let result;
     try {
-        const result = await playlist.findAll({
-            where: {
-                [Op.or]: [
-                    {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
-                    {style_musique: { [Op.like]: `%${req.query.r}%` }}
+        if(req.query.sort && req.query.order) {
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                },
+                order: [
+                    [`${req.query.sort}`, `${req.query.order}`]
                 ]
-            }
-        });
+            });
+        }else if(req.query.sort) {
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                },
+                order: [
+                    [`${req.query.sort}`, `DESC`]
+                ]
+            });
+        }
+        else{
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                }
+            });
+        }
+
         if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
         res.json(result);
     } catch (err) {
