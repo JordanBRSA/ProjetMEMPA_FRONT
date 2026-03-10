@@ -18,6 +18,7 @@ CREATE TABLE Playlist (
     nom_playlist     VARCHAR NOT NULL,
     style_musique    VARCHAR,
     id_createur      INT NOT NULL,
+    nbClick          INT DEFAULT 0,
     FOREIGN KEY (id_createur) REFERENCES Utilisateur(id_util)
         ON DELETE CASCADE
 );
