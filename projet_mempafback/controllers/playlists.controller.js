@@ -1,7 +1,7 @@
 const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
 
-// GET /api/playlists
+// GET /api/playlists/get
 const getAllPlaylists = async (req, res) => {
     const { playlist } = getMusicApp(req).models;
     try {
@@ -13,7 +13,7 @@ const getAllPlaylists = async (req, res) => {
     }
 };
 
-// GET /api/playlists/:id
+// GET /api/playlists/get/:id
 const getPlaylistById = async (req, res) => {
     const { playlist, musique } = getMusicApp(req).models;
     try {
