@@ -1,5 +1,8 @@
 const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
+const COLONNES_VALIDES = ['nom_playlist', 'style_musique', 'nbClick'];
+const ORDRE_VALIDE     = ['ASC', 'DESC'];
+
 
 // GET /api/playlists/get
 const getAllPlaylists = async (req, res) => {
@@ -49,6 +52,10 @@ const createPlaylist = async (req, res) => {
 
 // GET /api/playlists/search?r=:query
 const getPlaylistBySearch = async (req, res) => {
+
+    const sort  = COLONNES_VALIDES.includes(req.query.sort)  ? req.query.sort  : 'nbClick';
+    const order = ORDRE_VALIDE.includes(req.query.order)     ? req.query.order : 'DESC';
+
     const { playlist } = getMusicApp(req).models;
     let result;
     try {
@@ -56,13 +63,11 @@ const getPlaylistBySearch = async (req, res) => {
             result = await playlist.findAll({
                 where: {
                     [Op.or]: [
-                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
-                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                        { nom_playlist:  { [Op.like]: `%${req.query.r}%` }},
+                        { style_musique: { [Op.like]: `%${req.query.r}%` }}
                     ]
                 },
-                order: [
-                    [`${req.query.sort}`, `${req.query.order}`]
-                ]
+                order: [[sort, order]]
             });
         }else if(req.query.sort) {
             result = await playlist.findAll({
@@ -72,9 +77,7 @@ const getPlaylistBySearch = async (req, res) => {
                         {style_musique: { [Op.like]: `%${req.query.r}%` }}
                     ]
                 },
-                order: [
-                    [`${req.query.sort}`, `DESC`]
-                ]
+                order: [[sort, 'DESC']]
             });
         }
         else{
