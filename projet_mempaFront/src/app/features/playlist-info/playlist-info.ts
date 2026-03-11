@@ -55,14 +55,16 @@ export class PlaylistInfo {
     this.showDeleteModal = true;
   }
 
-  // protected confirmDelete() {
-  //   this.playlistService.deletePlaylist(this.playlist.id).subscribe(() => {
-  //   this.showDeleteModal = false;
-  //   console.log('Playlist supprimée !');
-  //  });
-  //}
+   protected confirmDelete() {
+     this.playlistService.deletePlaylist(this.playlist.id).subscribe(() => {
+     this.showDeleteModal = false;
+     console.log('Playlist supprimée !');
+    });
+  }
 
   protected addMusic() {
     alert("Direction page newMusic...");
   }
+
+
 }

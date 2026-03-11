@@ -14,7 +14,7 @@
   <div *ngFor="let playlist of playlists" (click)="playerService.playMusic(playlist.musics[0])" class="mb-3">
     <a [routerLink]="['/playlist', playlist.id]" class="text-decoration-none text-dark">
       <div class="card-body">
-        <h5 class="card-title">Playlist de : {{ playlist.creator }} </h5>
+        <h5 class="card-title">Playlist de : {{ playlist.name }} </h5>
         <div class="d-flex flex-row justify-content-between px-3 card-info">
           <div>Style : {{ playlist.style }}</div>
           <div>Clics : {{ playlist.clicks }}</div>

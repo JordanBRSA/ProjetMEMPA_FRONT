@@ -15,6 +15,7 @@ const playlistRoutes = require('./routes/playlists.routes');
 
 app.use('/api',           chansonRoutes);
 app.use('/api/playlists', playlistRoutes);
+app.use('/musiques', express.static('public/musiques'));
 
 app.listen(3000, () => {
     console.log(`Serveur démarré sur http://localhost:3000`);

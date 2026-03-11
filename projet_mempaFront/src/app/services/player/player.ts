@@ -55,9 +55,7 @@ export class PlayerService {
   previous() {
     const current = this.musicSource.value;
     if (!current || this.currentPlaylist.length === 0) return;
-
     const currentIndex = this.currentPlaylist.findIndex(m => m.id === current.id);
-
     if (currentIndex > 0) {
       this.playMusic(this.currentPlaylist[currentIndex - 1]);
     } else {
@@ -68,9 +66,7 @@ export class PlayerService {
   next() {
     const current = this.musicSource.value;
     if (!current || this.currentPlaylist.length === 0) return;
-
     const currentIndex = this.currentPlaylist.findIndex(m => m.id === current.id);
-
     if (currentIndex !== -1 && currentIndex < this.currentPlaylist.length - 1) {
       this.playMusic(this.currentPlaylist[currentIndex + 1]);
     } else {
@@ -81,12 +77,10 @@ export class PlayerService {
 
   togglePlay() {
     const current = this.musicSource.value;
-
     if (!current) {
       console.warn("Aucune musique n'est chargée.");
       return;
     }
-
     if (this.audio.paused) {
       this.audio.play()
         .then(() => this.isPlayingSource.next(true))

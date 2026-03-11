@@ -57,10 +57,10 @@
 <div *ngIf="showDeleteModal" class="modal-backdrop">
   <div class="modal-content">
     <h3 class="title">Attention !</h3>
-    <p>Vous êtes sur le point de supprimer la playlist de <strong>{{ playlist.creator }}</strong>. Êtes-vous sûr ?</p>
-    <div class="d-flex justify-content-end gap-2">
+    <p>Vous êtes sur le point de supprimer la playlist <strong>{{ playlist.name }}</strong>. Êtes-vous sûr ?</p>
+    <div class="d-flex justify-content-end gap-2 h-100">
       <button class="btn-close" (click)="closeDeleteModal()">Annuler</button>
-      <!-- <button class="btn btn-danger" (click)="confirmDelete()">Supprimer</button> -->
+      <button class="btn-delete" (click)="confirmDelete()">Supprimer</button>
     </div>
   </div>
 </div>

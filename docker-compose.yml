@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mempa_db
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./MEMPA.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --lower-case-table-names=1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mempa
+
+volumes:
+  mysql_data:

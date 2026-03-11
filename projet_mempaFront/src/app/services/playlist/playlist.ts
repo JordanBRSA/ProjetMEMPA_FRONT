@@ -6,7 +6,7 @@ import { Music } from '../../models/music';
 import { Contribute } from '../../models/contribute';
 import { MOCK_PLAYLISTS } from '../../mock/mock-data';
 
-const USE_MOCK = true;
+const USE_MOCK = false;
 
 export interface Playlist {
   id: number;
@@ -26,8 +26,9 @@ export class PlaylistService {
   constructor(private http: HttpClient) {}
 
   private mapPlaylist(p: any): Playlist {
+    console.log('Raw data:', p);
     return {
-      id: p.id_play,
+      id: p.id_playlist,
       name: p.nom_playlist,
       creator: p.id_createur,
       clicks: p.nb_cliques ?? 0,
@@ -56,23 +57,12 @@ export class PlaylistService {
     );
   }
 
-  addChanson(playlistId: number, music: Music): Observable<Music> {
-    if (USE_MOCK) {
-      const playlist = MOCK_PLAYLISTS.find(p => p.id === playlistId);
-      if (playlist) playlist.musics.push(music);
-      return of(music);
-    }
-    return this.http.post<any>(`${this.apiUrl}/playlists/${playlistId}/chansons`, {
-      titre: music.title,
-      auteur: music.artist,
-      lien: music.url
-    }).pipe(
-      map(m => ({
-        id: m.id_mus,
-        title: m.titre,
-        artist: m.auteur,
-        url: m.lien
-      }))
-    );
+  addChanson(playlistId: number, formData: FormData): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/playlists/${playlistId}/chansons`, formData);
+  }
+
+  deletePlaylist(playlistId : number) : Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/playlists/${playlistId}`).pipe()
+
   }
 }
