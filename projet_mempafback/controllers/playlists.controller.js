@@ -1,4 +1,5 @@
 const {Op} = require("sequelize");
+const repl = require("node:repl");
 const getMusicApp = (req) => req.app.get('musicApp');
 const COLONNES_VALIDES = ['nom_playlist', 'style_musique', 'nbClick'];
 const ORDRE_VALIDE     = ['ASC', 'DESC'];
@@ -50,7 +51,7 @@ const createPlaylist = async (req, res) => {
 };
 
 
-// GET /api/playlists/search?r=:query
+// GET /api/playlists/search?r=:query&sort=:dbchampsort&order=:ascoudesc(optionnel)
 const getPlaylistBySearch = async (req, res) => {
 
     const sort  = COLONNES_VALIDES.includes(req.query.sort)  ? req.query.sort  : 'nbClick';
@@ -91,7 +92,7 @@ const getPlaylistBySearch = async (req, res) => {
             });
         }
 
-        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        if (!result) return res.status(404).json({ error: 'Playlist introuvable dans controller' });
         res.json(result);
     } catch (err) {
         console.error(err);
@@ -100,5 +101,22 @@ const getPlaylistBySearch = async (req, res) => {
 };
 
 
+const deletePlaylist = async (req, res) => {
+    const { playlist } = getMusicApp(req).models;
 
-module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch };
+    try {
+        const result = await playlist.destroy({
+            where: {
+                id_playlist: req.params.id,
+            }
+        });
+        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        res.status(204).json(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+}
+
+
+module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch, deletePlaylist};

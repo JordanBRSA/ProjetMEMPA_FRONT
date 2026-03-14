@@ -1,4 +1,6 @@
+const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
+
 
 // GET /api/playlists/:id/chansons
 const getChansonsbyPlaylist = async (req, res) => {
@@ -16,6 +18,28 @@ const getChansonsbyPlaylist = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
     }
 };
+
+
+// GET /api/chansons/:idchanson
+const getChansonsbyId = async (req, res) => {
+    const { musique } = getMusicApp(req).models;
+    const chansonId = parseInt(req.params.idchanson);
+    try {
+        const result = await musique.findOne({
+            where: {
+                id_mus: chansonId,
+            },
+        });
+
+        if (!result) return res.status(404).json({ error: 'Playlist ivable' });
+        res.json(result); // Retourne uniquement les musiques
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+};
+
+
 
 // POST /api/playlists/:id/chansons
 const addChanson = async (req, res) => {
@@ -44,4 +68,25 @@ const addChanson = async (req, res) => {
     }
 };
 
-module.exports = { getChansonsbyPlaylist, addChanson };
+
+
+const deleteChanson = async (req, res) => {
+     const { musique } = getMusicApp(req).models;
+
+     try {
+         const result = await musique.destroy({
+            where: {
+                id_mus: req.params.id,
+         }
+        });
+        if (!result) return res.status(404).json({ error: 'Chanson introuvable' });
+         res.status(204).json(result);
+
+     } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+     }
+}
+
+
+module.exports = { getChansonsbyPlaylist, addChanson, getChansonsbyId, deleteChanson };
