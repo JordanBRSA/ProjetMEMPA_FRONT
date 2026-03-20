@@ -12,9 +12,12 @@ app.use(cors({ origin: 'http://localhost:4200' }));
 
 const chansonRoutes  = require('./routes/chansons.routes');
 const playlistRoutes = require('./routes/playlists.routes');
+const compteRoutes = require('./routes/compte.routes');
+
 
 app.use('/api',           chansonRoutes);
 app.use('/api/playlists', playlistRoutes);
+app.use('/api/compte/', compteRoutes);
 
 app.listen(3000, () => {
     console.log(`Serveur démarré sur http://localhost:3000`);

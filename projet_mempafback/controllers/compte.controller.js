@@ -1,37 +1,64 @@
+require('../.env');
+
+const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
 
-// GET /api/playlists/:id/chansons
-const seConnecter = async (req, res) => {
-    const { playlist, musique } = getMusicApp(req).models;
-    const playlistId = parseInt(req.params.id);
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
-    try {
-        const result = await playlist.findByPk(playlistId, {
-            include: [{ model: musique, as: 'id_mus_musiques' }]
+
+// POST /api/login
+const seConnecter = async (req, res) => {
+    const { utilisateur } = getMusicApp(req).models;
+
+    const { login, pass } = req.body;
+
+    if(!login || !pass || !utilisateur) {
+        return res.status(400).json({ error: 'login or mdp not found' });
+    }
+
+    try{
+        const result = await utilisateur.findOne({
+            where: {
+                nom_util:  login ,
+                mot_de_passe: pass
+
+            }
         });
-        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
-        res.json(result.id_mus_musiques); // Retourne uniquement les musiques
-    } catch (err) {
+        if(!(result)){
+            return res.status(403).json({ error: 'login or mdp not found' });
+        }
+
+
+    }
+    catch(err){
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
     }
+
+    const token = jwt.sign({login}, process.env.JWT_TOKEN, {expiresIn: '1d'});
+
+    res.status(200).json({token});
+
+
 };
 
-// POST /api/playlists/:id/chansons
+// POST /api/register
 const creerCompte = async (req, res) => {
     const { utilisateur } = getMusicApp(req).models;
-    const { login, mdp } = req.body;
+    const { login, pass } = req.body ?? {};
 
-    if (!login || !mdp) {
+    if (!login || !pass) {
         return res.status(400).json({ error: 'login mdp requis' });
     }
 
     try {
 
         // Créer la musique
-        const nouvCompte = await utilisateur.create({'login':'test'});
+        const nouvCompte = await utilisateur.create({'nom_util':login, 'mot_de_passe':pass});
+        const token = jwt.sign({login}, process.env.JWT_TOKEN, {expiresIn: '1d'});
 
-        res.status(201).json(nouvCompte);
+        res.status(201).json(token);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
@@ -41,4 +68,4 @@ const creerCompte = async (req, res) => {
 // DELETE compte ?
 
 
-module.exports = { seConnecter, creerCompte };
+module.exports = { seConnecter, creerCompte};
