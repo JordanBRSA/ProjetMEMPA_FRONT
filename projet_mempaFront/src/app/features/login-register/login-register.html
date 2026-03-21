@@ -1,0 +1,26 @@
+<div class="auth-container d-flex flex-column align-items-center justify-content-center">
+  <div class="auth-box d-flex flex-column">
+    <h1 class="title">{{ isRegisterMode ? 'Créer un compte' : 'Connexion' }}</h1>
+
+    <div class="d-flex flex-column gap-3">
+      <div class="d-flex flex-column">
+        <label for="login">Login</label>
+        <input id="login" type="text" [(ngModel)]="login" name="login" class="auth-input"/>
+      </div>
+      <div class="d-flex flex-column">
+        <label for="pass">Mot de passe</label>
+        <input id="pass" type="password" [(ngModel)]="pass" name="pass" class="auth-input"/>
+      </div>
+    </div>
+
+    <p class="message" *ngIf="message">{{ message }}</p>
+
+    <button class="btn-submit mt-4" (click)="submit()">
+      {{ isRegisterMode ? "S'inscrire" : 'Se connecter' }}
+    </button>
+
+    <p class="toggle-link mt-3" (click)="toggleMode()">
+      {{ isRegisterMode ? 'Déjà un compte ? Se connecter' : 'Pas de compte ? S\'inscrire' }}
+    </p>
+  </div>
+</div>

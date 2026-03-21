@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { PlaylistService, Playlist } from '../../services/playlist/playlist';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Music} from '../../models/music';
+import {AuthService} from '../../services/auth/auth';
 
 @Component({
   selector: 'app-playlist-list',
@@ -18,7 +19,9 @@ export class PlaylistList implements OnInit {
   playerService: any;
 
   constructor(private playlistService: PlaylistService,
-              private cdr: ChangeDetectorRef ) {}
+              private cdr: ChangeDetectorRef,
+              private router : Router,
+              private authService: AuthService) {}
 
   ngOnInit(): void {
     console.log('Appel de getPlaylists...');
@@ -40,13 +43,16 @@ export class PlaylistList implements OnInit {
   }
 
   onCreatePlaylist() {
-    console.log('Bouton cliqué !');
-    //TODO CHANGER POUR ADAPTER UNE FOIS LA PAGE D'AJOUT CREEE
-    alert('Création d\'une nouvelle playlist...');
+    this.router.navigate(['/playlist/create']);
   }
 
   onFilterPlaylist() {
     //TODO FAIRE LE FILTRE DE PLAYLIST -> COMPOSANT ?
     alert("Ouvre le filtre...")
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

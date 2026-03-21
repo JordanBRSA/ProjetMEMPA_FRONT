@@ -45,20 +45,20 @@ const getChansonsbyId = async (req, res) => {
 const addChanson = async (req, res) => {
     const { playlist, musique, appartenir } = getMusicApp(req).models;
     const playlistId = parseInt(req.params.id);
-    const { id_mus, titre, auteur, lien } = req.body;
+    const { titre, auteur } = req.body;
+    const fichier = req.file;
 
-    if (!titre || !auteur || !lien || !id_mus) {
-        return res.status(400).json({ error: 'id_mus, titre, auteur et lien requis' });
+    if (!titre || !auteur || !fichier) {
+        return res.status(400).json({ error: 'titre, auteur et fichier requis' });
     }
 
     try {
         const result = await playlist.findByPk(playlistId);
         if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
 
-        // Créer la musique
-        const nouvMusique = await musique.create({ id_mus, titre, auteur, lien });
+        const lien = `http://localhost:3000/musiques/${fichier.filename}`;
 
-        // Lier la musique à la playlist via la table Appartenir
+        const nouvMusique = await musique.create({ titre, auteur, lien });
         await appartenir.create({ id_play: playlistId, id_mus: nouvMusique.id_mus });
 
         res.status(201).json(nouvMusique);

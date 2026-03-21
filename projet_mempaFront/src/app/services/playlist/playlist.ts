@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Music } from '../../models/music';
 import { Contribute } from '../../models/contribute';
 import { MOCK_PLAYLISTS } from '../../mock/mock-data';
+
 
 const USE_MOCK = false;
 
@@ -58,11 +59,22 @@ export class PlaylistService {
   }
 
   addChanson(playlistId: number, formData: FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/playlists/${playlistId}/chansons`, formData);
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
+    return this.http.post<any>(`${this.apiUrl}/playlists/${playlistId}/chansons`, formData, { headers });
   }
 
-  deletePlaylist(playlistId : number) : Observable<any> {
-    return this.http.delete<any>(`${this.apiUrl}/playlists/${playlistId}`).pipe()
+  deletePlaylist(playlistId: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return this.http.delete<any>(`${this.apiUrl}/playlists/${playlistId}`, { headers });
+  }
 
+  createPlaylist(nom_playlist: string, style_musique: string, id_createur: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
+    return this.http.post<any>(`${this.apiUrl}/playlists`, { nom_playlist, style_musique, id_createur }, { headers });
+  }
+
+  private getToken(): string | null {
+    return localStorage.getItem('token');
   }
 }

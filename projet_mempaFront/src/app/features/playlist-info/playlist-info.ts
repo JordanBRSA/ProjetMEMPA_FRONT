@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {PlaylistService} from '../../services/playlist/playlist';
 import {NgForOf, NgIf} from '@angular/common';
 import {PlayerService} from '../../services/player/player';
@@ -23,7 +23,8 @@ export class PlaylistInfo {
   constructor(private route: ActivatedRoute,
               private playlistService: PlaylistService,
               private playerService: PlayerService,
-              private cdr: ChangeDetectorRef
+              private cdr: ChangeDetectorRef,
+              private router: Router,
   ) {}
 
   ngOnInit() {
@@ -55,16 +56,19 @@ export class PlaylistInfo {
     this.showDeleteModal = true;
   }
 
-   protected confirmDelete() {
-     this.playlistService.deletePlaylist(this.playlist.id).subscribe(() => {
-     this.showDeleteModal = false;
-     console.log('Playlist supprimée !');
+  protected confirmDelete() {
+    this.playlistService.deletePlaylist(this.playlist.id).subscribe({
+      next: () => {
+        this.showDeleteModal = false;
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.error('Erreur suppression :', err);
+      }
     });
   }
 
   protected addMusic() {
     alert("Direction page newMusic...");
   }
-
-
 }

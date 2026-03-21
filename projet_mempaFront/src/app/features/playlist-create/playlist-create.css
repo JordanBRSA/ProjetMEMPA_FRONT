@@ -1,0 +1,62 @@
+.auth-container {
+  height: 80vh;
+}
+
+.auth-box {
+  background: var(--green-bg);
+  padding: 40px;
+  border-radius: var(--radius);
+  width: 400px;
+}
+
+.title {
+  font-family: var(--title-font), serif;
+  color: var(--title-color);
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-family: var(--title-font), serif;
+  color: var(--title-color);
+}
+
+.auth-input {
+  background: #1a1a1a;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+}
+
+.btn-submit {
+  background: #574A3B;
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  padding: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-submit:hover {
+  opacity: 0.85;
+}
+
+.toggle-link {
+  color: #aaa;
+  cursor: pointer;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.toggle-link:hover {
+  color: white;
+}
+
+.message {
+  color: #ff6b6b;
+  font-size: 0.85rem;
+  margin-top: 10px;
+}

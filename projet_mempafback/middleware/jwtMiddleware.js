@@ -1,4 +1,4 @@
-require('../.env');
+require('dotenv').config();
 const jwt = require("jsonwebtoken");
 const router = require("../routes/compte.routes");
 
