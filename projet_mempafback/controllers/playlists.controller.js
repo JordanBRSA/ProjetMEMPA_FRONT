@@ -1,6 +1,10 @@
+const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
+const COLONNES_VALIDES = ['nom_playlist', 'style_musique', 'nbClick'];
+const ORDRE_VALIDE     = ['ASC', 'DESC'];
 
-// GET /api/playlists
+
+// GET /api/playlists/get
 const getAllPlaylists = async (req, res) => {
     const { playlist } = getMusicApp(req).models;
     try {
@@ -12,7 +16,7 @@ const getAllPlaylists = async (req, res) => {
     }
 };
 
-// GET /api/playlists/:id
+// GET /api/playlists/get/:id
 const getPlaylistById = async (req, res) => {
     const { playlist, musique } = getMusicApp(req).models;
     try {
@@ -45,4 +49,56 @@ const createPlaylist = async (req, res) => {
     }
 };
 
-module.exports = { getAllPlaylists, getPlaylistById, createPlaylist };
+
+// GET /api/playlists/search?r=:query
+const getPlaylistBySearch = async (req, res) => {
+
+    const sort  = COLONNES_VALIDES.includes(req.query.sort)  ? req.query.sort  : 'nbClick';
+    const order = ORDRE_VALIDE.includes(req.query.order)     ? req.query.order : 'DESC';
+
+    const { playlist } = getMusicApp(req).models;
+    let result;
+    try {
+        if(req.query.sort && req.query.order) {
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        { nom_playlist:  { [Op.like]: `%${req.query.r}%` }},
+                        { style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                },
+                order: [[sort, order]]
+            });
+        }else if(req.query.sort) {
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                },
+                order: [[sort, 'DESC']]
+            });
+        }
+        else{
+            result = await playlist.findAll({
+                where: {
+                    [Op.or]: [
+                        {nom_playlist: { [Op.like]: `%${req.query.r}%` }},
+                        {style_musique: { [Op.like]: `%${req.query.r}%` }}
+                    ]
+                }
+            });
+        }
+
+        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        res.json(result);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+};
+
+
+
+module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch };
