@@ -32,9 +32,8 @@ export class PlaylistInfo {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
+      this.playlistService.incrementClick(+id).subscribe();
       this.playlistService.getPlaylistById(id).subscribe(data => {
-
-        console.log("Playlist reçu :", data);
 
         this.playlist = data;
         this.cdr.detectChanges();

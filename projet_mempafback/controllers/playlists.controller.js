@@ -7,9 +7,11 @@ const ORDRE_VALIDE     = ['ASC', 'DESC'];
 
 // GET /api/playlists/get
 const getAllPlaylists = async (req, res) => {
-    const { playlist } = getMusicApp(req).models;
+    const { playlist, utilisateur } = getMusicApp(req).models;
     try {
-        const playlists = await playlist.findAll();
+        const playlists = await playlist.findAll({
+            include: [{ model: utilisateur, as: 'id_createur_utilisateur' }]
+        });
         res.json(playlists);
     } catch (err) {
         console.error(err);
@@ -17,12 +19,17 @@ const getAllPlaylists = async (req, res) => {
     }
 };
 
+
 // GET /api/playlists/get/:id
 const getPlaylistById = async (req, res) => {
-    const { playlist, musique } = getMusicApp(req).models;
+    const { playlist, musique, utilisateur } = getMusicApp(req).models;
     try {
         const result = await playlist.findByPk(req.params.id, {
-            include: [{ model: musique, as: 'id_mus_musiques' }]
+            include: [
+                { model: musique, as: 'id_mus_musiques' },
+                { model: utilisateur, as: 'id_createur_utilisateur' },
+                { model: utilisateur, as: 'id_util_utilisateurs' }
+            ]
         });
         if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
         res.json(result);
@@ -118,5 +125,18 @@ const deletePlaylist = async (req, res) => {
     }
 }
 
+const incrementClick = async (req, res) => {
+    const { playlist } = getMusicApp(req).models;
+    try {
+        const result = await playlist.findByPk(req.params.id);
+        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
 
-module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch, deletePlaylist};
+        await result.increment('nbClick');
+        res.status(200).json({ nbClick: result.nbClick + 1 });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Erreur serveur' });
+    }
+};
+
+module.exports = { getAllPlaylists, getPlaylistById, createPlaylist, getPlaylistBySearch, deletePlaylist, incrementClick };

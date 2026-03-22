@@ -31,10 +31,12 @@ export class PlaylistService {
     return {
       id: p.id_playlist,
       name: p.nom_playlist,
-      creator: p.id_createur,
-      clicks: p.nb_cliques ?? 0,
+      creator: p.id_createur_utilisateur?.nom_util ?? p.id_createur,
+      clicks: p.nbClick ?? 0,
       style: p.style_musique,
-      contributors: [],
+      contributors: (p.id_util_utilisateurs ?? []).map((u: any) => ({
+        name: u.nom_util
+      })),
       musics: (p.id_mus_musiques ?? []).map((m: any) => ({
         id: m.id_mus,
         title: m.titre,
@@ -72,6 +74,19 @@ export class PlaylistService {
   createPlaylist(nom_playlist: string, style_musique: string, id_createur: number): Observable<any> {
     const headers = new HttpHeaders({ 'Authorization': `Bearer ${this.getToken()}` });
     return this.http.post<any>(`${this.apiUrl}/playlists`, { nom_playlist, style_musique, id_createur }, { headers });
+  }
+
+  searchPlaylists(query: string, sort?: string, order?: string): Observable<Playlist[]> {
+    let params = `?r=${query}`;
+    if (sort)  params += `&sort=${sort}`;
+    if (order) params += `&order=${order}`;
+    return this.http.get<any[]>(`${this.apiUrl}/playlists/search${params}`).pipe(
+      map(playlists => playlists.map(p => this.mapPlaylist(p)))
+    );
+  }
+
+  incrementClick(playlistId: number): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/playlists/${playlistId}/click`, {});
   }
 
   private getToken(): string | null {

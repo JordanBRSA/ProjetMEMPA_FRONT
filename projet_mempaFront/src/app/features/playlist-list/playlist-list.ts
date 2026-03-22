@@ -4,11 +4,12 @@ import { PlaylistService, Playlist } from '../../services/playlist/playlist';
 import {Router, RouterLink} from '@angular/router';
 import {Music} from '../../models/music';
 import {AuthService} from '../../services/auth/auth';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-playlist-list',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, NgOptimizedImage, RouterLink, FormsModule],
   templateUrl: './playlist-list.html',
   styleUrl: './playlist-list.css'
 })
@@ -17,6 +18,10 @@ export class PlaylistList implements OnInit {
   playlists: Playlist[] = [];
   isLoading = true;
   playerService: any;
+  showFilter = false;
+  searchQuery = '';
+  sortBy = '';
+  order = '';
 
   constructor(private playlistService: PlaylistService,
               private cdr: ChangeDetectorRef,
@@ -24,22 +29,39 @@ export class PlaylistList implements OnInit {
               private authService: AuthService) {}
 
   ngOnInit(): void {
-    console.log('Appel de getPlaylists...');
+    this.loadPlaylists();
+  }
+
+  loadPlaylists(): void {
     this.playlistService.getPlaylists().subscribe({
       next: (data) => {
-        console.log('Données reçues :', data); // Doit afficher l'array de 5 playlists
         this.playlists = data;
         this.isLoading = false;
         this.cdr.detectChanges();
       },
-      error: (err) => {
-        console.error('Erreur API détaillée :', err);
-      }
+      error: (err) => console.error('Erreur API :', err)
     });
   }
 
-  onPlayMusic(music: Music) {
-    this.playerService.playMusic(music);
+  onSearch(): void {
+    if (!this.searchQuery && !this.sortBy) {
+      this.loadPlaylists();
+      return;
+    }
+    this.playlistService.searchPlaylists(this.searchQuery, this.sortBy, this.order).subscribe({
+      next: (data) => {
+        this.playlists = data;
+        this.cdr.detectChanges();
+      },
+      error: (err) => console.error('Erreur recherche :', err)
+    });
+  }
+
+  onReset(): void {
+    this.searchQuery = '';
+    this.sortBy = '';
+    this.order = '';
+    this.loadPlaylists();
   }
 
   onCreatePlaylist() {
@@ -47,8 +69,7 @@ export class PlaylistList implements OnInit {
   }
 
   onFilterPlaylist() {
-    //TODO FAIRE LE FILTRE DE PLAYLIST -> COMPOSANT ?
-    alert("Ouvre le filtre...")
+    this.showFilter = !this.showFilter;
   }
 
   onLogout() {

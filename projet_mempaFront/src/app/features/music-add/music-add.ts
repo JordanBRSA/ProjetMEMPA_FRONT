@@ -17,7 +17,6 @@ export class MusicAdd {
   loading = false;
   title: string = '';
   artist: string = '';
-  contributor: string = '';
   selectedFile: File | null = null;
 
   constructor(
@@ -44,7 +43,6 @@ export class MusicAdd {
   addMusic() {
     if (!this.title)        { this.message = "Veuillez entrer un titre valide";          return; }
     if (!this.artist)       { this.message = "Veuillez entrer un artiste";               return; }
-    if (!this.contributor)  { this.message = "Veuillez entrer un contributeur";          return; }
     if (!this.selectedFile) { this.message = "Veuillez sélectionner un fichier MP3";    return; }
 
     this.loading = true;

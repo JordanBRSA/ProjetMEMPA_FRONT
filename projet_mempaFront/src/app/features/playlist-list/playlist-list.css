@@ -52,3 +52,43 @@
 .filtre-txt{
   margin: 7px;
 }
+
+<!-- Filtre -->
+
+.filter-panel {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: var(--radius);
+}
+
+.filter-input {
+  background: #2a2a2a;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 8px 12px;
+}
+
+.btn-submit {
+  background: #574A3B;
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.btn-reset {
+  background: #444;
+  border: none;
+  border-radius: var(--radius);
+  color: white;
+  padding: 8px;
+  cursor: pointer;
+}
+
+label {
+  font-family: var(--title-font), serif;
+  color: var(--title-color);
+  font-size: 0.85rem;
+}

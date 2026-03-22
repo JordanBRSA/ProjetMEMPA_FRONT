@@ -43,10 +43,11 @@ const getChansonsbyId = async (req, res) => {
 
 // POST /api/playlists/:id/chansons
 const addChanson = async (req, res) => {
-    const { playlist, musique, appartenir } = getMusicApp(req).models;
+    const { playlist, musique, appartenir, contribution } = getMusicApp(req).models;
     const playlistId = parseInt(req.params.id);
     const { titre, auteur } = req.body;
     const fichier = req.file;
+    const userId = req.user.id;
 
     if (!titre || !auteur || !fichier) {
         return res.status(400).json({ error: 'titre, auteur et fichier requis' });
@@ -61,14 +62,17 @@ const addChanson = async (req, res) => {
         const nouvMusique = await musique.create({ titre, auteur, lien });
         await appartenir.create({ id_play: playlistId, id_mus: nouvMusique.id_mus });
 
+        // Ajoute le contributeur seulement s'il n'existe pas déjà
+        await contribution.findOrCreate({
+            where: { id_util: userId, id_play: playlistId }
+        });
+
         res.status(201).json(nouvMusique);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
     }
 };
-
-
 
 const deleteChanson = async (req, res) => {
      const { musique } = getMusicApp(req).models;
