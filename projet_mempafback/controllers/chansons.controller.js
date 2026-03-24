@@ -49,7 +49,7 @@ const addChanson = async (req, res) => {
     const sequelize = getMusicApp(req).sequelize;
 
     if (!titre || !auteur || !lien) {
-        return res.status(400).json({ error: 'id_mus, titre, auteur et lien requis' });
+        return res.status(400).json({ error: 'titre, auteur et lien requis' });
     }
 
     try {
