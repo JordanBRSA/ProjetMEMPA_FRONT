@@ -45,24 +45,38 @@ const getChansonsbyId = async (req, res) => {
 const addChanson = async (req, res) => {
     const { playlist, musique, appartenir } = getMusicApp(req).models;
     const playlistId = parseInt(req.params.id);
-    const { id_mus, titre, auteur, lien } = req.body;
+    const {titre, auteur, lien } = req.body;
+    const sequelize = getMusicApp(req).sequelize;
 
-    if (!titre || !auteur || !lien || !id_mus) {
+    if (!titre || !auteur || !lien) {
         return res.status(400).json({ error: 'id_mus, titre, auteur et lien requis' });
     }
 
     try {
+
         const result = await playlist.findByPk(playlistId);
-        if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        if (!result) {
+            return res.status(404).json({ error: 'Playlist introuvable' });
+        }
 
-        // Créer la musique
-        const nouvMusique = await musique.create({ id_mus, titre, auteur, lien });
+        const transaction = await sequelize.transaction();
+        try{
 
-        // Lier la musique à la playlist via la table Appartenir
-        await appartenir.create({ id_play: playlistId, id_mus: nouvMusique.id_mus });
+            // Créer la musique
+            const nouvMusique = await musique.create({titre, auteur, lien },{ transaction });
 
-        res.status(201).json(nouvMusique);
-    } catch (err) {
+            // Lier la musique à la playlist via la table Appartenir
+            await appartenir.create({ id_play: playlistId, id_mus: nouvMusique.id_mus }, { transaction });
+
+            await transaction.commit();
+            res.status(201).json(nouvMusique);
+        } catch (err) {
+            await transaction.rollback();
+            console.error(err);
+            res.status(500).json({ error: 'Erreur serveur' });
+        }
+
+    }catch (err){
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
     }

@@ -65,7 +65,4 @@ const creerCompte = async (req, res) => {
     }
 };
 
-// DELETE compte ?
-
-
 module.exports = { seConnecter, creerCompte};

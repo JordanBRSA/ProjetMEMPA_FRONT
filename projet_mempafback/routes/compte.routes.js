@@ -10,9 +10,6 @@ router.post('/register', jwtVerifGuest.jwtMiddlewareForGuest, compteController.c
 //On ne peut se connecter que si on est pas connecté
 router.post('/login',   jwtVerifGuest.jwtMiddlewareForGuest, compteController.seConnecter);
 
-//router.post('/logout', compteController.seDeconnecter)
-
-
 //router.delete('/:id', compte.deletePlaylist)
 
 module.exports = router;

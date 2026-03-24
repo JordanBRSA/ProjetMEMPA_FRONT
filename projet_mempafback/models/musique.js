@@ -9,7 +9,8 @@ class musique extends Sequelize.Model {
     id_mus: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true
     },
     titre: {
       type: DataTypes.STRING(255),
