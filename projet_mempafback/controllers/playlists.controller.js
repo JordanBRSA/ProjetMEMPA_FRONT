@@ -20,13 +20,23 @@ const getAllPlaylists = async (req, res) => {
 // GET /api/playlists/get/:id
 const getPlaylistById = async (req, res) => {
     const { playlist, musique } = getMusicApp(req).models;
+    const sequelize = getMusicApp(req).sequelize;
+
+    const transaction = await sequelize.transaction();
+
     try {
         const result = await playlist.findByPk(req.params.id, {
-            include: [{ model: musique, as: 'id_mus_musiques' }]
+            include: [{ model: musique, as: 'id_mus_musiques' }],
+            transaction: transaction
         });
         if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+        await result.increment("nbClick");
+
+        await transaction.commit();
+
         res.json(result);
     } catch (err) {
+        await transaction.rollback();
         console.error(err);
         res.status(500).json({ error: 'Erreur serveur' });
     }

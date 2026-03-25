@@ -4,8 +4,7 @@ const {Op} = require("sequelize");
 const getMusicApp = (req) => req.app.get('musicApp');
 
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-
+const crypto = require("crypto");
 
 // POST /api/login
 const seConnecter = async (req, res) => {
@@ -18,10 +17,11 @@ const seConnecter = async (req, res) => {
     }
 
     try{
+
         const result = await utilisateur.findOne({
             where: {
                 nom_util:  login ,
-                mot_de_passe: pass
+                mot_de_passe: crypto.hash('sha256', pass, "hex"),
 
             }
         });
@@ -55,7 +55,7 @@ const creerCompte = async (req, res) => {
     try {
 
         // Créer la musique
-        const nouvCompte = await utilisateur.create({'nom_util':login, 'mot_de_passe':pass});
+        const nouvCompte = await utilisateur.create({'nom_util':login, 'mot_de_passe':crypto.hash('sha256', pass, "hex")});
         const token = jwt.sign({login}, process.env.JWT_TOKEN, {expiresIn: '1d'});
 
         res.status(201).json(token);
