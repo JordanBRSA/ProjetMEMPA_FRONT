@@ -4,7 +4,7 @@ const router = require("../routes/compte.routes");
 
 
 /**
- * Permet de vérifier si l'utilisateur est connecté. Oui, erreur. Non on permet de continuer.
+ * Permet de vérifier si l'utilisateur est connecté. Si oui, erreur. Non on permet de continuer.
  * (utilisé pour empecher la création de compte pour les utilisateurs déjà connecté par exemple)
  * @param req   la requete provenant du client
  * @param res

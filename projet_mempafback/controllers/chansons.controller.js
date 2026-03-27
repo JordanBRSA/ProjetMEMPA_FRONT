@@ -40,7 +40,12 @@ const getChansonsbyId = async (req, res) => {
 };
 
 
-
+/**
+ * permet d'ajouter une chanson
+ * @param req la requete envoyée par le front
+ * @param res le résultat à envoyer au front
+ * @returns {Promise<*>}
+ */
 // POST /api/playlists/:id/chansons
 const addChanson = async (req, res) => {
     const { playlist, musique, appartenir } = getMusicApp(req).models;

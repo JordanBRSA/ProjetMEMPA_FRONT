@@ -5,11 +5,11 @@ const jwtVerifGuest = require('../middleware/jwtMiddlewareForGuest');
 
 //api/compte/
 
+//Route créer compte si utilisateur non connecté
 router.post('/register', jwtVerifGuest.jwtMiddlewareForGuest, compteController.creerCompte);
 
 //On ne peut se connecter que si on est pas connecté
 router.post('/login',   jwtVerifGuest.jwtMiddlewareForGuest, compteController.seConnecter);
 
-//router.delete('/:id', compte.deletePlaylist)
 
 module.exports = router;

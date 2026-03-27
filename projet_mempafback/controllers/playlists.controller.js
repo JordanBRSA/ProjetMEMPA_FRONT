@@ -30,6 +30,8 @@ const getPlaylistById = async (req, res) => {
             transaction: transaction
         });
         if (!result) return res.status(404).json({ error: 'Playlist introuvable' });
+
+        //on ajoute 1 au nombre click
         await result.increment("nbClick");
 
         await transaction.commit();
@@ -62,6 +64,12 @@ const createPlaylist = async (req, res) => {
 
 
 // GET /api/playlists/search?r=:query&sort=:dbchampsort&order=:ascoudesc(optionnel)
+/**
+ * Permet de faire des recherches avec un tri
+ * @param req La requete du front
+ * @param res Le résultat à renvoyer
+ * @returns {Promise<*>}
+ */
 const getPlaylistBySearch = async (req, res) => {
 
     const sort  = COLONNES_VALIDES.includes(req.query.sort)  ? req.query.sort  : 'nbClick';

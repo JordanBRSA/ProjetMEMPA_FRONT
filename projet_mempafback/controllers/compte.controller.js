@@ -6,6 +6,7 @@ const getMusicApp = (req) => req.app.get('musicApp');
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 
+
 // POST /api/login
 const seConnecter = async (req, res) => {
     const { utilisateur } = getMusicApp(req).models;
@@ -36,6 +37,7 @@ const seConnecter = async (req, res) => {
         res.status(500).json({ error: 'Erreur serveur' });
     }
 
+    //création du token jwt (expire dans 1 jour)
     const token = jwt.sign({login}, process.env.JWT_TOKEN, {expiresIn: '1d'});
 
     res.status(200).json({token});
